@@ -2,7 +2,10 @@ const { Server } = require("socket.io");
 
 const port = process.env.PORT || 8000;
 const io = new Server(port, {
-  cors: true,
+  cors: {
+    origin: "*",
+    credentials: true,
+  },
 });
 
 const emailToSocketIdMap = new Map();
