@@ -1,6 +1,7 @@
 const { Server } = require("socket.io");
 
-const io = new Server(8000, {
+const port = process.env.PORT || 8000;
+const io = new Server(port, {
   cors: true,
 });
 
@@ -30,7 +31,7 @@ io.on("connection", (socket) => {
     io.to(to).emit("peer:nego:needed", { from: socket.id, offer });
   });
 
-  socket.on("peer:nego:done",({to,ans}) => {
+  socket.on("peer:nego:done", ({ to, ans }) => {
     io.to(to).emit("peer:nego:final", { from: socket.id, ans });
-  })
+  });
 });
